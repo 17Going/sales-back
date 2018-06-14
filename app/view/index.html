@@ -1,12 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>销售系统管理API文档</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
 </head>
+
 <body>
-    hello world
+    <div class="container">
+        <ul>
+            <li>
+                <h3 class="bg-primary" style="padding: 5px;">创建公司名称：/api/department/create</h3>
+                <h4 class="bg-info" style="padding: 5px;">参数：</h4>
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <th>属性名称</th>
+                        <th>属性类型</th>
+                        <th>默认值</th>
+                    </thead>
+                    <tbody>
+                        <td>name(公司名称)</td>
+                        <td>string</td>
+                        <td>无</td>
+                    </tbody>
+                </table>
+                <h4 class="bg-info" style="padding: 5px;">返回：</h4>
+                <code>
+                    { code: '0', data: [] }
+                </code>
+                创建成功
+            </li>
+            <li>
+                <h3 class="bg-primary" style="padding: 5px;">创建部门：/api/department/add</h3>
+                <h4 class="bg-info" style="padding: 5px;">参数：</h4>
+                <table class="table table-condensed table-bordered">
+                    <thead>]
+                        <tr>
+                            <th>属性名称</th>
+                            <th>属性类型</th>
+                            <th>默认值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>name(部门名称)</td>
+                            <td>string</td>
+                            <td>无</td>
+                        </tr>
+                        <tr>
+                            <td>parentId（父级部门ID）</td>
+                            <td>number</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4 class="bg-info" style="padding: 5px;">返回：</h4>
+                <code>
+                    { code: '0', data: [] }
+                </code>
+                创建成功
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
