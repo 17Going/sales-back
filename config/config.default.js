@@ -13,6 +13,14 @@ module.exports = appInfo => {
     },
   };
 
+  config.view = {
+    enable: true,
+    package: 'egg-view',
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.nj': 'nunjucks',
+    },
+  };
   // 日志配置
   config.logger = {
     level: 'DEBUG',
