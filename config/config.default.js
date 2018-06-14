@@ -21,6 +21,10 @@ module.exports = appInfo => {
       '.nj': 'nunjucks',
     },
   };
+
+  config.security = {
+    domainWhiteList: [ '*' ],
+  };
   // 日志配置
   config.logger = {
     level: 'DEBUG',
