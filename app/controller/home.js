@@ -5,8 +5,9 @@ const Controller = require('egg').Controller;
 class HomeController extends Controller {
   async index() {
     this.service.department.create({
-      departmentName: '122',
+      name: '122',
       parentId: 0,
+      createTime: new Date().getTime()
     });
     this.ctx.body = 'hi, egg';
   }
