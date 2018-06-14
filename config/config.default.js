@@ -28,8 +28,12 @@ module.exports = appInfo => {
     renew: true, // 自动刷新session有效期
   };
 
-  // add your config here
-  config.middleware = [];
+  // 配置中间件
+  config.middleware = ['error'];
+
+  config.error = {
+    match: '/api',
+  }
 
   return config;
 };
