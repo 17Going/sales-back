@@ -7,14 +7,14 @@ class LoginController extends Controller {
     const { ctx, service } = this;
     const createRule = {
       username: {
-        type: 'string'
+        type: 'string',
       },
       passwrod: {
-        type: 'string'
-      }
-    }
-    console.log(ctx.toJSON)
-    ctx.body = ctx.toJSON({name:122})
+        type: 'string',
+      },
+    };
+    console.log(ctx.toJSON);
+    ctx.body = ctx.toJSON({ name: 122 });
   }
 }
 
