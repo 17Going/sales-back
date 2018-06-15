@@ -35,6 +35,8 @@ describe('test/app/service/department.test.js', () => {
         oldDep.name = 'update' + new Date().getSeconds();
         const result = await ctx.service.department.update(oldDep);
         assert(result == true);
+        const dep = await ctx.service.department.get(oldDep.id);
+        assert(dep.name == oldDep.name);
     });
 
     it('根据parentId查询部门', async () =>{
