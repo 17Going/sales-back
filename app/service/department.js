@@ -43,7 +43,6 @@ class DepartmentService extends Service {
     return result.affectedRows === 1;
   }
 
-
   /**
    * 删除部门
    * @param {Number} id 
@@ -53,6 +52,33 @@ class DepartmentService extends Service {
       id
     });
     return result.affectedRows === 1;
+  }
+
+  async getAll() {
+    let root = await this.getDepsByParentId(0);
+    let children = await this.getDeps(root[0].id);
+
+    return {
+      ...root[0],
+      children
+    }
+  }
+
+  async getDeps(id) {
+    let children = [];
+    let data = await this.getDepsByParentId(id);
+    if (data.length !== 0) {
+      for(let i = 0, len = data.length; i < len; i++){
+        let child = await this.getDeps(data[i].id);
+        children.push({
+          ...data[i],
+          children: child
+        });
+      }
+      return children;
+    } else {
+      return [];
+    }
   }
 }
 

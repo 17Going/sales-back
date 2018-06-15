@@ -52,4 +52,10 @@ describe('test/app/service/department.test.js', () => {
         assert(result == true);
     });
 
+    it('获取公司组织结构', async () => {
+        const ctx = app.mockContext();
+        const result = await ctx.service.department.getAll();
+        assert(result.name == '销售部');
+    });
+
 });

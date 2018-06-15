@@ -2,6 +2,20 @@
 
 const Controller = require('egg').Controller;
 
+const createRule = {
+    name: { type: 'string' },
+    parentId: { type: 'number' },
+};
+
+const updateRule = {
+    id: { type: 'number'},
+    name: { type: 'string' },
+};
+
+const delRule = {
+    id: {type: 'number'}
+}
+
 class DepartmentController extends Controller {
 
     /**
@@ -31,12 +45,8 @@ class DepartmentController extends Controller {
      */
     async add() {
         const { ctx, service } = this;
-        const rule = {
-            name: { type: 'string' },
-            parentId: { type: 'number' },
-        };
         // 校验参数
-        ctx.validate(rule);
+        ctx.validate(createRule);
         // 查询父级部门是否存在
         var faDep = await service.department.get(ctx.request.body.parentId);
         if (faDep) {
@@ -50,6 +60,39 @@ class DepartmentController extends Controller {
         } else {
             ctx.body = ctx.helper.fail('10002');
         }
+        ctx.status = 200;
+    }
+
+    /**
+     * 获取组织结构
+     */
+    async getAll() {
+        const { ctx , service } = this;
+        const result = await service.department.getAll();
+        ctx.body = ctx.helper.success(result);
+        ctx.status = 200;
+    }
+
+    /**
+     * 更新部门
+     */
+    async update() {
+        const {ctx, service} = this;
+        ctx.validate(updateRule);
+        await service.department.update(ctx.request.body);
+        ctx.body = ctx.helper.success([]);
+        ctx.status = 200;
+    }
+
+    /**
+     * 删除部门
+     */
+    async del() {
+        const { ctx, service } = this;
+        ctx.validate(delRule);
+        const { id } = ctx.request.body;
+        await service.department.del(id);
+        ctx.body = ctx.helper.success([]);
         ctx.status = 200;
     }
 }
