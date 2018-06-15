@@ -23,6 +23,10 @@ module.exports = appInfo => {
 
   config.security = {
     domainWhiteList: [ '*' ],
+    csrf: {
+      // 暂时关闭csrf验证
+      ignore: '/api'
+    }
   };
   // 日志配置
   config.logger = {
