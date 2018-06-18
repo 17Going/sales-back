@@ -1,7 +1,6 @@
 'use strict';
 const Controller = require('egg').Controller;
 
-
 const list = [{
   title: '创建公司名称：/api/department/create POST',
   params: [{
@@ -67,6 +66,7 @@ const list = [{
 class ApiController extends Controller {
   async index() {
     const { app, ctx } = this;
+    console.log('holler')
     await ctx.render('index', {list});
   }
 }

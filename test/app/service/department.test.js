@@ -8,54 +8,54 @@
 const { app, assert } = require('egg-mock/bootstrap');
 
 describe('test/app/service/department.test.js', () => {
-    let oldDep, oldId;
+    // let oldDep, oldId;
 
-    it('创建部门', async () => {
-        const ctx = app.mockContext();
-        const id = await ctx.service.department.add({
-            name: '销售部',
-            parentId: 1,
-            createTime: new Date().getTime()
-        });
-        assert(id !== 0);
-        oldId = id;
-    });
+    // it('创建部门', async () => {
+    //     const ctx = app.mockContext();
+    //     const id = await ctx.service.department.add({
+    //         name: '销售部',
+    //         parentId: 1,
+    //         createTime: new Date().getTime()
+    //     });
+    //     assert(id !== 0);
+    //     oldId = id;
+    // });
 
-    it('根据id查询部门', async () => {
-        const ctx = app.mockContext();
-        const dep = await ctx.service.department.get(oldId);
-        console.log(dep);
-        assert(dep);
-        assert(dep.name === '销售部');
-        oldDep = dep;
-    });
+    // it('根据id查询部门', async () => {
+    //     const ctx = app.mockContext();
+    //     const dep = await ctx.service.department.get(oldId);
+    //     console.log(dep);
+    //     assert(dep);
+    //     assert(dep.name === '销售部');
+    //     oldDep = dep;
+    // });
 
-    it('修改部门信息', async () => {
-        const ctx = app.mockContext();
-        oldDep.name = 'update' + new Date().getSeconds();
-        const result = await ctx.service.department.update(oldDep);
-        assert(result == true);
-        const dep = await ctx.service.department.get(oldDep.id);
-        assert(dep.name == oldDep.name);
-    });
+    // it('修改部门信息', async () => {
+    //     const ctx = app.mockContext();
+    //     oldDep.name = 'update' + new Date().getSeconds();
+    //     const result = await ctx.service.department.update(oldDep);
+    //     assert(result == true);
+    //     const dep = await ctx.service.department.get(oldDep.id);
+    //     assert(dep.name == oldDep.name);
+    // });
 
-    it('根据parentId查询部门', async () =>{
-        const ctx = app.mockContext();
-        const deps = await ctx.service.department.getDepsByParentId(oldDep.parentId);
-        assert(deps.length != 0);
-    });
+    // it('根据parentId查询部门', async () =>{
+    //     const ctx = app.mockContext();
+    //     const deps = await ctx.service.department.getDepsByParentId(oldDep.parentId);
+    //     assert(deps.length != 0);
+    // });
 
-    it('根据id 删除部门', async () => {
-        const ctx = app.mockContext();
-        const result = await ctx.service.department.del(oldId);
+    // it('根据id 删除部门', async () => {
+    //     const ctx = app.mockContext();
+    //     const result = await ctx.service.department.del(oldId);
 
-        assert(result == true);
-    });
+    //     assert(result == true);
+    // });
 
-    it('获取公司组织结构', async () => {
-        const ctx = app.mockContext();
-        const result = await ctx.service.department.getAll();
-        assert(result.name == '销售部');
-    });
+    // it('获取公司组织结构', async () => {
+    //     const ctx = app.mockContext();
+    //     const result = await ctx.service.department.getAll();
+    //     assert(result.name == '销售部');
+    // });
 
 });

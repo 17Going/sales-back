@@ -16,3 +16,8 @@ exports.nunjucks = {
   enable: true,
   package: 'egg-view-nunjucks',
 };
+
+exports.oAuth2Server = {
+  enable: true,
+  package: 'egg-oauth2-server',
+};

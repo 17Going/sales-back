@@ -25,8 +25,8 @@ module.exports = appInfo => {
     domainWhiteList: [ '*' ],
     csrf: {
       // 暂时关闭csrf验证
-      ignore: '/api'
-    }
+      // ignore: '/api',
+    },
   };
   // 日志配置
   config.logger = {
@@ -47,6 +47,11 @@ module.exports = appInfo => {
 
   config.error = {
     match: '/api',
+  };
+
+  // 配置oath2鉴权
+  config.oAuth2Server = {
+    grants: [ 'password' ],
   };
 
   config.mysql = {
