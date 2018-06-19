@@ -23,9 +23,9 @@ module.exports = () => {
       }
     }
 
-    validateScope(user, client, scope) {
-      return scope;
-    }
+    // validateScope(user, client, scope) {
+    //   return scope;
+    // }
 
     saveToken(token, client, user) {
       // 保存token

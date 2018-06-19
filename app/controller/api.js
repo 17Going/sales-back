@@ -66,7 +66,6 @@ const list = [{
 class ApiController extends Controller {
   async index() {
     const { app, ctx } = this;
-    console.log('holler')
     await ctx.render('index', {list});
   }
 }
