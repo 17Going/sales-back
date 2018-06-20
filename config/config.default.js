@@ -25,7 +25,7 @@ module.exports = appInfo => {
     domainWhiteList: [ '*' ],
     csrf: {
       // 暂时关闭csrf验证
-      // ignore: '/api',
+      ignore: '/api',
     },
   };
   // 日志配置
