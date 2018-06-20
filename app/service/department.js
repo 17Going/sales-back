@@ -1,15 +1,9 @@
 'use strict';
 
 const Service = require('egg').Service;
+const {now, STATUS_DELETE, STATUS_NORMAL} = require('../config');
 
 const TABLE_NAME = 'department';
-
-const STATUS_DELETE = 1;
-const STATUS_NORMAL = 0;
-
-function now() {
-  return new Date().getTime();
-}
 
 class DepartmentService extends Service {
 

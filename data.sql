@@ -45,12 +45,13 @@ ROW_FORMAT=DYNAMIC
 ;
 
 --用户信息表
-CREATE TABLE `user_info` (
+CREATE TABLE `NewTable` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
-`name`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`userName`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`password`  varchar(255) NOT NULL ,
 `phone`  bigint(20) NOT NULL ,
 `email`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-`cap`  int(11) NULL DEFAULT 30 ,
+`cap`  int(11) NULL DEFAULT 30 COMMENT '客户容量池' ,
 `depId`  int(11) NULL DEFAULT NULL ,
 `jobId`  int(11) NULL DEFAULT NULL ,
 `authId`  int(11) NULL DEFAULT NULL ,
@@ -58,17 +59,6 @@ CREATE TABLE `user_info` (
 `createTime`  bigint(20) NULL DEFAULT NULL ,
 `updateTime`  bigint(20) NULL DEFAULT NULL ,
 PRIMARY KEY (`id`)
-)
-ENGINE=InnoDB
-DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-ROW_FORMAT=DYNAMIC
-;
-
---用户鉴权表
-CREATE TABLE `user_access` (
-`userId`  int(11) NOT NULL ,
-`username`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-`password`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'admin@1234' 
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
