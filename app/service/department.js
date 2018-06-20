@@ -1,57 +1,86 @@
 'use strict';
+
 const Service = require('egg').Service;
 
-const tableName = 'department';
+const TABLE_NAME = 'department';
+
+const STATUS_DELETE = 1;
+const STATUS_NORMAL = 0;
+
+function now() {
+  return new Date().getTime();
+}
 
 class DepartmentService extends Service {
-  /**
-   * 新增部门
-   * @param {Object} dep 
-   */
-  async add(dep) {
-    const result = await this.app.mysql.insert(tableName, dep);
+
+  async create(dep) {
+    dep = {
+      ...dep, 
+      createTime: now(), 
+      updateTime: now()
+    };
+
+    if(dep.parentId == 0){
+      const rows = await this.getDepsByParentId(0);
+      if(rows && rows[0]){
+        throw {code: 101, msg: '公司已存在'};
+      }
+    } else {
+      const row = await this.get(dep.parentId);
+      if(!row){
+        throw {code: 102, msg: '父级部门不存在'};
+      }
+    }
+    const result = await this.app.mysql.insert(TABLE_NAME, dep);
     return result.insertId;
   }
 
-  /**
-   * 根据id,查询部门
-   * @param {Number} id 
-   */
-  async get(id) {
-    const dep = await this.app.mysql.get(tableName, { id });
-    return dep;
+  async delete(id) {
+    let dep = await this.get(id);
+    if(!dep){
+      throw {code: 103, msg: '部门不存在'};
+    } else if(dep.parentId == 0){
+      throw {code: 104, msg: '公司不能被删除'};
+    } else {
+      let rows = await this.getDepsByParentId(id);
+      if(rows && rows[0]){
+        throw {code: 105, msg: '存在子级部门不能被删除'};
+      } else {
+          // TODO 查询部门下是否存在员工，存在员工不能被删除
+          dep.status = STATUS_DELETE;
+          return await this.update(dep, true);
+      }
+    }
   }
 
-  /**
-   * 根据父级id查询部门（多个）
-   * @param {Number} id 
-   */
+  async update(dep, isDel) {
+    dep.updateTime = now();
+    let row = await this.get(dep.id);
+    if(!row){
+      throw {code: 103, msg: '部门不存在'};
+    }
+    //防止更新时，删除数据
+    if(!isDel){
+      delete dep.status;
+    }
+    const result = await this.app.mysql.update(TABLE_NAME, dep);
+    return result.affectedRows === 1;
+  }
+
+  async get(id) {
+    let sql = `select id,depName, parentId,createTime,updateTime
+      from ${TABLE_NAME} where id= ${id} and status <> ${STATUS_DELETE} limit 1`;
+    
+    const row = await this.app.mysql.query(sql);
+    return row && row[0];
+  }
+
   async getDepsByParentId(parentId) {
-    const deps = await this.app.mysql.select(tableName, {
-      where: { parentId }
+    const deps = await this.app.mysql.select(TABLE_NAME, {
+      where: { parentId },
+      columns: ['id', 'depName', 'parentId', 'createTime', 'updateTime']
     });
     return deps;
-  }
-
-  /**
-   * 更新部门信息
-   * @param {Object} dep 
-   */
-  async update(dep) {
-    const result = await this.app.mysql.update(tableName, dep);
-    console.log(result);
-    return result.affectedRows === 1;
-  }
-
-  /**
-   * 删除部门
-   * @param {Number} id 
-   */
-  async del(id) {
-    const result = await this.app.mysql.delete(tableName, {
-      id
-    });
-    return result.affectedRows === 1;
   }
 
   async getAll() {
