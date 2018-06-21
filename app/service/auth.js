@@ -2,8 +2,8 @@
 
 const Service = require('egg').Service;
 const {now, STATUS_DELETE, STATUS_NORMAL} = require('../config');
-
 const TABLE_NAME = 'auth';
+const QUERY_STR = 'id, authName, authValue, createTime, updateTime';
 
 class AuthService extends Service {
 
@@ -13,11 +13,20 @@ class AuthService extends Service {
         return result.insertId;
     }
 
+    async query( auth ) {
+        const TABLE_NAME = 'auth';
+        const QUERY_STR = 'id, authName, authValue, createTime, updateTime';
+        let sql = `select ${QUERY_STR} from ${TABLE_NAME} where authName like "%${auth.authName}%"`;
+        const row = await this.app.mysql.query(sql);
+        return row;
+    }
+
     async delete ( id ) {
         let row = await this.get(id);
         if(!row) {
             throw {code: 201, msg: '权限角色不存在'}
         }
+        // TODO 有人配置了此权限不能删除
         row.status = STATUS_DELETE;
         return await this.update(row, true);
     }
@@ -41,5 +50,6 @@ class AuthService extends Service {
         const row = await this.app.mysql.query(sql);
         return row && row[0];
     }
-
 }
+
+module.exports = AuthService;
