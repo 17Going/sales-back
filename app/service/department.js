@@ -79,20 +79,32 @@ class DepartmentService extends Service {
 
   async getAll() {
     let root = await this.getDepsByParentId(0);
-    let children = await this.getDeps(root[0].id);
-
+    let deps = await this.app.mysql.select(TABLE_NAME,{
+      columns: ['id', 'depName', 'parentId', 'createTime', 'updateTime']
+    });
+    let children = this.getDeps(root[0].id, deps);
     return {
       ...root[0],
       children
     }
   }
 
-  async getDeps(id) {
+  getChildren(id, data){
+    let result = []; 
+    data.map((item)=>{
+      if(item.parentId == id){
+        result.push(item);
+      }
+    });
+    return result;
+  }
+
+  getDeps(id, deps) {
     let children = [];
-    let data = await this.getDepsByParentId(id);
+    let data = this.getChildren(id, deps);
     if (data.length !== 0) {
       for(let i = 0, len = data.length; i < len; i++){
-        let child = await this.getDeps(data[i].id);
+        let child = this.getDeps(data[i].id, deps);
         children.push({
           ...data[i],
           children: child
