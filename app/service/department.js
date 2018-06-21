@@ -4,6 +4,7 @@ const Service = require('egg').Service;
 const {now, STATUS_DELETE, STATUS_NORMAL} = require('../config');
 
 const TABLE_NAME = 'department';
+const QUERY_STR = `id,depName, parentId,createTime,updateTime`;
 
 class DepartmentService extends Service {
 
@@ -62,27 +63,23 @@ class DepartmentService extends Service {
   }
 
   async get(id) {
-    let sql = `select id,depName, parentId,createTime,updateTime
-      from ${TABLE_NAME} where id= ${id} and status <> ${STATUS_DELETE} limit 1`;
-    
+    let sql = `select ${QUERY_STR} from ${TABLE_NAME} where id= ${id} and status <> ${STATUS_DELETE} limit 1`;
     const row = await this.app.mysql.query(sql);
     return row && row[0];
   }
 
   async getDepsByParentId(parentId) {
-    const deps = await this.app.mysql.select(TABLE_NAME, {
-      where: { parentId },
-      columns: ['id', 'depName', 'parentId', 'createTime', 'updateTime']
-    });
+    let sql = `select ${QUERY_STR} from ${TABLE_NAME} where parentId= ${parentId} and status <> ${STATUS_DELETE}`;
+    const deps = await this.app.mysql.query(sql);
     return deps;
   }
 
   async getAll() {
+    const sql = `select ${QUERY_STR} from ${TABLE_NAME} where status <> ${STATUS_DELETE}`;
     let root = await this.getDepsByParentId(0);
-    let deps = await this.app.mysql.select(TABLE_NAME,{
-      columns: ['id', 'depName', 'parentId', 'createTime', 'updateTime']
-    });
+    let deps = await this.app.mysql.query(sql);
     let children = this.getDeps(root[0].id, deps);
+
     return {
       ...root[0],
       children

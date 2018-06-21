@@ -7,5 +7,7 @@ module.exports = {
     //删除状态
     STATUS_DELETE : 1,
     //正常状态
-    STATUS_NORMAL : 0
+    STATUS_NORMAL : 0,
+
+    DEFAULT_PASSWORD: 'admin@1234'
 }

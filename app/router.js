@@ -8,9 +8,12 @@ module.exports = app => {
   router.post('/login', app.oAuth2Server.token());
   router.get('/doc', controller.api.index);
   
+  //部门
   router.post('/api/department/create', controller.department.create);
   router.delete('/api/department/delete', controller.department.delete);
   router.put('/api/department/update', controller.department.update);
-
   router.get('/api/department/getAll', controller.department.getAll);
+
+  //用户
+  router.post('/api/user/create', controller.user.create);
 };
