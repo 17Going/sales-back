@@ -80,10 +80,12 @@ class DepartmentService extends Service {
     let deps = await this.app.mysql.query(sql);
     let children = this.getDeps(root[0].id, deps);
 
-    return {
-      ...root[0],
-      children
+    let company = {...root[0]};
+    if(children && children.length){
+      company.children = children;
     }
+
+    return company;
   }
 
   getChildren(id, data){
@@ -101,11 +103,12 @@ class DepartmentService extends Service {
     let data = this.getChildren(id, deps);
     if (data.length !== 0) {
       for(let i = 0, len = data.length; i < len; i++){
+        let dep = {...data[i]};
         let child = this.getDeps(data[i].id, deps);
-        children.push({
-          ...data[i],
-          children: child
-        });
+        if(child && child.length){
+          dep.children = child;
+        }
+        children.push(dep);
       }
       return children;
     } else {

@@ -50,15 +50,15 @@ describe('test/app/controller/department.test.js', () => {
     //         });
     // });
 
-    // it('controller 获取组织结构', () => {
-    //     app.mockCsrf();
-    //     return app.httpRequest()
-    //         .get('/api/department/getAll')
-    //         .expect(200)
-    //         .then(response => {
-    //           console.log(response.body.data);
-    //             assert(response.body.data);
-    //         });
-    // });
+    it('controller 获取组织结构', () => {
+        app.mockCsrf();
+        return app.httpRequest()
+            .get('/api/department/getAll')
+            .expect(200)
+            .then(response => {
+              console.log(response.body.data);
+                assert(response.body.data);
+            });
+    });
 
 });
