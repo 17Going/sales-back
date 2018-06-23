@@ -12,9 +12,15 @@ module.exports = () => {
             const status = err.status || 500;
 
             if (status == 500) {
-                ctx.body = ctx.helper.fail('9001');
+                ctx.body = {
+                    code: 500,
+                    msg: '系统错误'
+                }
             } else if(status == 422){
-                ctx.body = ctx.helper.fail('9002');
+                ctx.body = {
+                    code: 500,
+                    msg: '参数格式不对'
+                }
             }
 
             ctx.status = 200;
