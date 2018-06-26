@@ -16,4 +16,5 @@ module.exports = app => {
 
   //用户
   router.post('/api/user/create', controller.user.create);
+  router.get('/api/user/getAll', controller.user.getAll);
 };

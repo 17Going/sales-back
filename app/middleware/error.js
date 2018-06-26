@@ -18,7 +18,7 @@ module.exports = () => {
                 }
             } else if(status == 422){
                 ctx.body = {
-                    code: 500,
+                    code: 422,
                     msg: '参数格式不对'
                 }
             }

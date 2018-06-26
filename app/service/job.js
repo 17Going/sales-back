@@ -41,5 +41,7 @@ class JobService extends Service {
         const row = await this.app.mysql.query(sql);
         return row && row[0];
     }
-
+    
 }
+
+module.exports = JobService;

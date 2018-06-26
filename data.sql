@@ -45,7 +45,7 @@ ROW_FORMAT=DYNAMIC
 ;
 
 --用户信息表
-CREATE TABLE `NewTable` (
+CREATE TABLE `user` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `userName`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
 `password`  varchar(255) NOT NULL ,

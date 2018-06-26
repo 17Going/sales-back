@@ -42,6 +42,18 @@ class UserController extends Controller {
             ctx.status = 200;
         }
     }
+
+    async list() {
+        const {ctx, service } = this;
+        var users = await service.user.getAll(id);
+        ctx.body = ctx.helper.success({
+            activeStaffCount: 0,
+            undistributedCount: 0,
+            totalCount: 2,
+            list: users
+        });
+        ctx.status = 200;
+    }
 }
 
 module.exports = UserController;
