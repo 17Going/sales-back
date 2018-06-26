@@ -11,7 +11,7 @@ describe('test/app/controller/user.test.js', () => {
     it('controller 获取表格数据', () => {
         app.mockCsrf();
         return app.httpRequest()
-        .post('/api/user/getAll')
+        .get('/api/user/getAll')
         .send({
 
         })

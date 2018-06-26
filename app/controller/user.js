@@ -45,7 +45,7 @@ class UserController extends Controller {
 
     async list() {
         const {ctx, service } = this;
-        var users = await service.user.getAll(id);
+        var users = await service.user.getAll();
         ctx.body = ctx.helper.success({
             activeStaffCount: 0,
             undistributedCount: 0,
