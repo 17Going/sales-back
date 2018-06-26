@@ -13,10 +13,11 @@ describe('test/app/controller/user.test.js', () => {
         return app.httpRequest()
         .get('/api/user/getAll')
         .send({
-
+            pageSize: 1,
+            pageNum: 1
         })
         .expect((res) => {
-            console.log(res);
+            console.log(res.body.data);
             assert(res.body);
         })
     });

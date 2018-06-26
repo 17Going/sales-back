@@ -54,10 +54,13 @@ class UserService extends Service {
         return row;
     }
 
-    async getAll() {
+    async getAll(params) {
         let sql = `SELECT user.id, user.userName, user.phone, user.email, user.status, user.createTime, user.updateTime,
         department.depName,auth.authName,job.jobName
-        from user, department,auth,job WHERE user.depId = department.id and user.authId = auth.id and user.jobId = job.id;`
+        from user, department,auth,job 
+        WHERE user.depId = department.id 
+        and user.authId = auth.id 
+        and user.jobId = job.id`;
 
         const row = await this.app.mysql.query(sql);
         return row;
