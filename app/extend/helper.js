@@ -10,15 +10,16 @@ module.exports = {
     }
   },
 
-  where(obj) {
-    var str = [`status <> ${STATUS_DELETE}`];
+  where(obj, pre) {
+    pre = pre || ''; 
+    var str = [`${pre}status <> ${STATUS_DELETE}`];
     for(let k in obj){
       if(typeof obj[k] == 'string'){
-        str.push(`${k} like '%${obj[k]}%'`);
+        str.push(`${pre}${k} like '%${obj[k]}%'`);
       } else if(Array.isArray(obj[k])){
-        str.push( `${k} in (${obj[k]})`);
+        str.push( `${pre}${k} in (${obj[k]})`);
       } else {
-        str.push(`${k} = ${obj[k]}`);
+        str.push(`${pre}${k} = ${obj[k]}`);
       }
     }
 

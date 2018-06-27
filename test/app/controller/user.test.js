@@ -13,12 +13,18 @@ describe('test/app/controller/user.test.js', () => {
         return app.httpRequest()
         .get('/api/user/getAll')
         .send({
-            pageSize: 1,
-            pageNum: 1
+            pageSize: 10,
+            pageNum: 1,
+            query:{
+                depId: 4,
+                // userName: '总经理',
+                phone: '177',
+                status: 0
+            }
         })
         .expect((res) => {
-            console.log(res.body.data);
-            assert(res.body);
+            console.log(res.body.data.list.length)
+            assert(res.body.data.list);
         })
     });
 

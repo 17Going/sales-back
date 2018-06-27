@@ -9,19 +9,19 @@ const { app, assert } = require('egg-mock/bootstrap');
 
 describe('test/app/controller/department.test.js', () => {
 
-      it('controller 创建公司 或 部门', () => {
-        app.mockCsrf();
-        return app.httpRequest()
-          .post('/api/department/create')
-          .send({
-            depName: 'sdsffs',
-            parentId: 3
-          })
-          .expect(200, {
-            code: 0,
-            data: []
-          });
-      });
+      // it('controller 创建公司 或 部门', () => {
+      //   app.mockCsrf();
+      //   return app.httpRequest()
+      //     .post('/api/department/create')
+      //     .send({
+      //       depName: 'sdsffs',
+      //       parentId: 3
+      //     })
+      //     .expect(200, {
+      //       code: 0,
+      //       data: []
+      //     });
+      // });
 
     // it('controller 部门删除', () => {
     //     app.mockCsrf();

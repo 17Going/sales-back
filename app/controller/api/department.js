@@ -6,9 +6,11 @@ const list = [{
   params: [{
     name: 'depName(部门名称)',
     type: 'string',
+    need: true,
     default: ''
   },{
     name: 'parentId（父级部门ID）创建公司传0',
+    need: true,
     type: 'number',
     default: ''
   }],
@@ -22,6 +24,7 @@ const list = [{
   params: [{
     name: 'id',
     type: 'number',
+    need: true,
     default: ''
   }],
   response: [
@@ -32,14 +35,17 @@ const list = [{
   params: [{
     name: 'id',
     type: 'number',
+    need: true,
     default: ''
   },{
     name: 'depName(公司名称)',
     type: 'string',
+    need: false,
     default: ''
   },{
-    name: 'parentId（父级部门ID）',
+    name: 'parentId（父级部门ID）修改=移动部门',
     type: 'number',
+    need: false,
     default: ''
   }],
   response: [
@@ -54,10 +60,11 @@ const list = [{
 }]
 
 
-class ApiController extends Controller {
+class ApiDepController extends Controller {
   async index() {
     const { app, ctx } = this;
     await ctx.render('index', {list});
   }
 }
-module.exports = ApiController;
+
+module.exports = ApiDepController;

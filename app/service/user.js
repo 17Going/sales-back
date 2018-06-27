@@ -48,19 +48,28 @@ class UserService extends Service {
     async query( user ) {
         const {ctx , app} = this;
         // 并列查询
-        const where =ctx.helper.where(user);
+        const where = ctx.helper.where(user);
         let sql = `select ${QUERY_STR} from ${TABLE_NAME} where ${where}`;
         const row = await app.mysql.query(sql);
         return row;
     }
 
-    async getAll(params) {
-        let sql = `SELECT user.id, user.userName, user.phone, user.email, user.status, user.createTime, user.updateTime,
-        department.depName,auth.authName,job.jobName
-        from user, department,auth,job 
-        WHERE user.depId = department.id 
-        and user.authId = auth.id 
-        and user.jobId = job.id`;
+    async getAll( query ) {
+        const {ctx , app} = this;
+        const offset = query.pageSize*(query.pageIndex - 1);
+        const where = ctx.helper.where(query.query, 'user.');
+
+        let sql = `select user.id, user.userName, user.phone, 
+            user.email, user.status, user.createTime, user.updateTime,
+            department.depName,auth.authName,job.jobName
+            from user left join department on user.depId = department.id
+            left join auth on user.authId = auth.id 
+            left join job on user.jobId = job.id 
+            where ${where}
+            group by user.id
+            limit ${offset}, ${query.pageSize}`;
+
+        console.log(sql)
 
         const row = await this.app.mysql.query(sql);
         return row;
