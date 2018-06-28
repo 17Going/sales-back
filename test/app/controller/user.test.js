@@ -14,12 +14,15 @@ describe('test/app/controller/user.test.js', () => {
         .get('/api/user/getAll')
         .send({
             // pageSize: 10,
-            pageIndex: 1,
+            // pageIndex: 1,
             query:{
                 depId: 4,
                 // userName: '总经理',
                 phone: '177',
                 status: 0
+            },
+            order: {
+                userName: 'desc'
             }
         })
         .expect((res) => {

@@ -27,6 +27,7 @@ module.exports = {
   },
 
   order(obj, pre) {
+    pre = pre || ''; 
     if(!obj){
       return `order by ${pre}id desc`
     } else {

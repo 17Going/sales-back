@@ -75,6 +75,21 @@ const list = [{
     need: false,
     type: 'number',
     default: ''
+  },{
+    name: 'order 排序',
+    need: false,
+    type: 'Object',
+    default: ''
+  },{
+    name: 'order.userName 按名称排序 值： "desc"降序 | "asc"升序',
+    need: false,
+    type: 'string',
+    default: ''
+  },{
+    name: 'order.phone 按手机号排序 值： "desc"降序 | "asc"升序 依次类推所有的显示字段都可以排序',
+    need: false,
+    type: 'string',
+    default: ''
   }],
   response: [
   `{ code: "0", data: {

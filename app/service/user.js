@@ -58,7 +58,7 @@ class UserService extends Service {
         const {ctx , app} = this;
         const offset = query.pageSize*(query.pageIndex - 1);
         const where = ctx.helper.where(query.query, 'user.');
-        const order = ctx.helper.order(query.order, 'user.');
+        const order = ctx.helper.order(query.order);
 
         let sql = `select user.id, user.userName, user.phone, 
             user.email, user.status, user.createTime, user.updateTime,
