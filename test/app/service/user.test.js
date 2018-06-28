@@ -33,7 +33,7 @@ describe('test/app/service/user.test.js', () => {
 
     it('service 查询全部员工', async()=>{
         const ctx = app.mockContext();
-        let users = await ctx.service.user.getAll({pageSize: 10, pageNum: 1});
+        let users = await ctx.service.user.getAll({pageSize: 10, pageIndex: 1});
         assert(users);
     })
 

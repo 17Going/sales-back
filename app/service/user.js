@@ -58,6 +58,7 @@ class UserService extends Service {
         const {ctx , app} = this;
         const offset = query.pageSize*(query.pageIndex - 1);
         const where = ctx.helper.where(query.query, 'user.');
+        const order = ctx.helper.order(query.order, 'user.');
 
         let sql = `select user.id, user.userName, user.phone, 
             user.email, user.status, user.createTime, user.updateTime,
@@ -67,9 +68,8 @@ class UserService extends Service {
             left join job on user.jobId = job.id 
             where ${where}
             group by user.id
+            ${order}
             limit ${offset}, ${query.pageSize}`;
-
-        console.log(sql)
 
         const row = await this.app.mysql.query(sql);
         return row;

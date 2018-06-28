@@ -13,8 +13,8 @@ describe('test/app/controller/user.test.js', () => {
         return app.httpRequest()
         .get('/api/user/getAll')
         .send({
-            pageSize: 10,
-            pageNum: 1,
+            // pageSize: 10,
+            pageIndex: 1,
             query:{
                 depId: 4,
                 // userName: '总经理',

@@ -24,5 +24,17 @@ module.exports = {
     }
 
     return str.join(' and ');
+  },
+
+  order(obj, pre) {
+    if(!obj){
+      return `order by ${pre}id desc`
+    } else {
+      var str = [];
+      for(let p in obj){
+        str.push(`${pre}${p} ${obj[p]}`);
+      }
+      return `order by ${str.join(',')}`;
+    }
   }
 };
