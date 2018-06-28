@@ -46,11 +46,12 @@ class UserController extends Controller {
     async list() {
         const {ctx, service } = this;
         const params = {pageSize: 20, pageIndex: 1, ...ctx.request.query, ...ctx.request.body};
+        const count = await service.user.count(params.query);
         const users = await service.user.getAll(params);
         ctx.body = ctx.helper.success({
             activeStaffCount: 0,
             undistributedCount: 0,
-            totalCount: 2,
+            totalCount: count,
             list: users
         });
         ctx.status = 200;

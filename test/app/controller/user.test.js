@@ -13,10 +13,10 @@ describe('test/app/controller/user.test.js', () => {
         return app.httpRequest()
         .get('/api/user/getAll')
         .send({
-            // pageSize: 10,
+            pageSize: 10,
             // pageIndex: 1,
             query:{
-                depId: 4,
+                // depId: 4,
                 // userName: '总经理',
                 phone: '177',
                 status: 0
@@ -26,6 +26,7 @@ describe('test/app/controller/user.test.js', () => {
             }
         })
         .expect((res) => {
+            console.log(res.body.data)
             console.log(res.body.data.list.length)
             assert(res.body.data.list);
         })

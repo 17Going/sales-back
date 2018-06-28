@@ -54,13 +54,26 @@ class UserService extends Service {
         return row;
     }
 
+    async count( query ) {
+        const {ctx , app} = this;
+        const where = ctx.helper.where(query, 'user.');
+        let sql = `select count(user.id) count from user 
+            left join department on user.depId = department.id
+            left join auth on user.authId = auth.id 
+            left join job on user.jobId = job.id 
+            where ${where}`;
+
+        const row = await this.app.mysql.query(sql);
+        return row && row[0].count;
+    }
+
     async getAll( query ) {
         const {ctx , app} = this;
         const offset = query.pageSize*(query.pageIndex - 1);
         const where = ctx.helper.where(query.query, 'user.');
         const order = ctx.helper.order(query.order);
 
-        let sql = `select user.id, user.userName, user.phone, 
+        let sql = `select user.id, user.userName, user.phone, user.cap,
             user.email, user.status, user.createTime, user.updateTime,
             department.depName,auth.authName,job.jobName
             from user left join department on user.depId = department.id
