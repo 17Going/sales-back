@@ -4,7 +4,7 @@ const Controller = require('egg').Controller;
 const list = [{
   title: '创建权限：/api/auth/create POST',
   params: [{
-    authName: 'authName',
+    name: 'authName',
     type: 'string',
     need: true,
     default: ''
