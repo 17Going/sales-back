@@ -20,11 +20,10 @@ class DepartmentController extends Controller {
 
     async create(){
         const { ctx, service } = this;
-        console.log(ctx.request.body)
         ctx.validate(createRule);
         try{
-            await service.department.create(ctx.request.body);
-            ctx.body = ctx.helper.success([]);
+            const id = await service.department.create(ctx.request.body);
+            ctx.body = ctx.helper.success({id});
         } catch(e){
             ctx.body = e;
         }finally{

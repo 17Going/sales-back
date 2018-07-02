@@ -67,7 +67,7 @@ class UserService extends Service {
         return row && row[0].count;
     }
 
-    async getAll( query ) {
+    async list( query ) {
         const {ctx , app} = this;
         const offset = query.pageSize*(query.pageIndex - 1);
         const where = ctx.helper.where(query.query, 'user.');

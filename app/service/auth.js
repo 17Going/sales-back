@@ -9,13 +9,21 @@ class AuthService extends Service {
 
     async create( auth ) {
         auth = {...auth, createTime: now(), updateTime: now()}
+        this._validJSON(auth.authValue);
         const result = await this.app.mysql.insert(TABLE_NAME, auth);
         return result.insertId;
     }
 
+    _validJSON(str){
+        try{
+            JSON.parse(str);
+        }catch(e){
+            throw {code: 201, msg: '新建权限失败，权限值不符合参数格式'};
+        }
+    }
+
     async query( auth ) {
         const TABLE_NAME = 'auth';
-        const QUERY_STR = 'id, authName, authValue, createTime, updateTime';
         let sql = `select ${QUERY_STR} from ${TABLE_NAME} where authName like "%${auth.authName}%"`;
         const row = await this.app.mysql.query(sql);
         return row;
@@ -44,12 +52,13 @@ class AuthService extends Service {
     }
 
     async get( id ) {
-        let sql = `select id, authName, authValue, createTime, updateTime
-        from ${TABLE_NAME} where id= ${id} and status <> ${STATUS_DELETE} limit 1`;
+        let sql = `select ${QUERY_STR} from ${TABLE_NAME} 
+        where id= ${id} and status <> ${STATUS_DELETE} limit 1`;
         
         const row = await this.app.mysql.query(sql);
         return row && row[0];
     }
+
 }
 
 module.exports = AuthService;

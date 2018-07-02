@@ -15,7 +15,7 @@ const list = [{
     default: ''
   }],
   response: [
-    '{ code: "0", data: [] } 创建成功',
+    '{ code: "0", data: {id:xxx} } 创建成功',
     '{ code: "101", msg: "公司已存在" } 创建失败',
     '{ code: "102", msg: "父级部门不存在" } 创建失败'
   ]

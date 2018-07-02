@@ -36,10 +36,10 @@ const list = [{
     default: ''
   }],
   response: [
-    '{ code: "0", data: [] } 创建成功'
+    '{ code: "0", data: {id:xxx} } 创建成功'
   ]
 },{
-  title: '查询员工：/api/user/getAll GET',
+  title: '查询员工：/api/user/list GET',
   params: [{
     name: 'pageSize 每页数量',
     type: 'number',

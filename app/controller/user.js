@@ -20,8 +20,8 @@ class UserController extends Controller {
         const { ctx, service } = this;
         ctx.validate(createRule);
         try{
-            await service.user.create(ctx.request.body);
-            ctx.body = ctx.helper.success([]);
+            const id = await service.user.create(ctx.request.body);
+            ctx.body = ctx.helper.success({id});
         } catch(e){
             ctx.body = e;
         }finally{
@@ -47,7 +47,7 @@ class UserController extends Controller {
         const {ctx, service } = this;
         const params = {pageSize: 20, pageIndex: 1, ...ctx.request.query, ...ctx.request.body};
         const count = await service.user.count(params.query);
-        const users = await service.user.getAll(params);
+        const users = await service.user.list(params);
         ctx.body = ctx.helper.success({
             activeStaffCount: 0,
             undistributedCount: 0,
