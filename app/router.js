@@ -23,4 +23,5 @@ module.exports = app => {
 
   //权限值
   router.post('/api/auth/create', controller.auth.create);
+  router.put('/api/auth/update', controller.auth.update);
 };

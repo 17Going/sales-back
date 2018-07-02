@@ -21,4 +21,19 @@ describe('test/app/controller/auth.test.js', () => {
                 assert(res.body.data);
             })
     });
+
+    it('controller 更新权限角色', ()=>{
+        app.mockCsrf();
+        return app.httpRequest()
+            .put('/api/auth/update')
+            .send({
+                id: 3,
+                authName: '业务员',
+                authValue: JSON.stringify({a: 2})
+            })
+            .expect(200)
+            .then(res=>{
+                assert(res.body.data);
+            })
+    });
 })

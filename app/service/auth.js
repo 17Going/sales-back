@@ -18,7 +18,7 @@ class AuthService extends Service {
         try{
             JSON.parse(str);
         }catch(e){
-            throw {code: 201, msg: '新建权限失败，权限值不符合参数格式'};
+            throw {code: 201, msg: '权限值不符合参数格式'};
         }
     }
 
@@ -40,13 +40,17 @@ class AuthService extends Service {
     }
 
     async update ( auth , isDel) {
-        let row = await this.get(id);
+        let row = await this.get(auth.id);
         if(!row) {
             throw {code: 201, msg: '权限角色不存在'}
         }
         if(!isDel) {
             delete auth.status;
         }
+        if(auth.authValue){
+            this._validJSON(auth.authValue);
+        }
+        auth.updateTime = now();
         const result = await this.app.mysql.update(TABLE_NAME, auth);
         return result.affectedRows == 1;
     }
